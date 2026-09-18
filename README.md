@@ -5,6 +5,7 @@
 An animated, dark-themed login and sign-up screen prototype for a gamified
 guitar-learning app.
 
+[![CI](https://github.com/Emirhan156/guitar_loginscreen/actions/workflows/ci.yml/badge.svg)](https://github.com/Emirhan156/guitar_loginscreen/actions/workflows/ci.yml)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
@@ -69,7 +70,8 @@ authentication.
 │       ├── AnimatedBackground.tsx
 │       ├── AuthCard.tsx
 │       └── HeroSection.tsx
-├── public/                       Favicon and static icons
+├── public/                       Favicon
+├── .github/workflows/            CI: lint and build on every push and pull request
 ├── index.html                    Vite entry page
 └── vite.config.ts                Vite configuration
 ```
@@ -85,7 +87,7 @@ authentication.
 ```sh
 git clone https://github.com/Emirhan156/guitar_loginscreen.git
 cd guitar_loginscreen
-npm install
+npm ci
 npm run dev
 ```
 
@@ -98,15 +100,10 @@ Open the URL Vite prints (by default http://localhost:5173).
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | Run ESLint |
 
-No environment variables or other configuration are needed.
+No environment variables or other configuration are needed. `npm run lint` and
+`npm run build` run on every push and pull request through
+[GitHub Actions](.github/workflows/ci.yml).
 
 ## Project status
 
 This is an archived UI prototype; development continued in FretFlow.
-
-- `npm run build` currently stops at the TypeScript step because of an unused
-  `React` import in `src/App.tsx`; `npx vite build` produces a bundle.
-- `npm run lint` reports `react-hooks/purity` errors for `Math.random` in
-  `AnimatedBackground.tsx`.
-- `package-lock.json` is out of sync with `package.json`, so `npm ci` fails; use
-  `npm install`.

@@ -1,4 +1,3 @@
-import React from 'react';
 import AnimatedBackground from './components/AnimatedBackground';
 import HeroSection from './components/HeroSection';
 import AuthCard from './components/AuthCard';

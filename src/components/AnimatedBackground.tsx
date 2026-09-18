@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const AnimatedBackground: React.FC = () => {
+  // Random values are generated once (lazy state initialisers) so rendering stays pure
+  const [stringDurations] = useState(() =>
+    Array.from({ length: 6 }, () => 3 + Math.random() * 2)
+  );
+
   // Generate random particles for the music vibe
-  const particles = Array.from({ length: 20 });
+  const [particles] = useState(() =>
+    Array.from({ length: 20 }, () => ({
+      x: Math.random() * window.innerWidth,
+      opacity: Math.random() * 0.5 + 0.2,
+      offset: Math.random() * 100 - 50,
+      duration: 10 + Math.random() * 10,
+      delay: Math.random() * 10,
+    }))
+  );
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -38,7 +51,7 @@ const AnimatedBackground: React.FC = () => {
               boxShadow: ['0 0 10px rgba(57,255,20,0)', '0 0 20px rgba(57,255,20,0.5)', '0 0 10px rgba(57,255,20,0)']
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: stringDurations[string - 1],
               repeat: Infinity,
               delay: string * 0.2
             }}
@@ -47,24 +60,24 @@ const AnimatedBackground: React.FC = () => {
       </div>
 
       {/* Floating Music Particles */}
-      {particles.map((_, i) => (
+      {particles.map((particle, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 rounded-full bg-white/40"
           initial={{
-            x: Math.random() * window.innerWidth,
+            x: particle.x,
             y: window.innerHeight + 100,
-            opacity: Math.random() * 0.5 + 0.2
+            opacity: particle.opacity
           }}
           animate={{
             y: -100,
-            x: `+=${Math.random() * 100 - 50}`,
+            x: `+=${particle.offset}`,
             opacity: [0, 0.8, 0]
           }}
           transition={{
-            duration: 10 + Math.random() * 10,
+            duration: particle.duration,
             repeat: Infinity,
-            delay: Math.random() * 10,
+            delay: particle.delay,
             ease: "linear"
           }}
         />
